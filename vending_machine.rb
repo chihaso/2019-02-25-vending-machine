@@ -1,11 +1,12 @@
 class VendingMachine
   ACCEPTABLE_CURRENCIES = [10, 50, 100, 500, 1000]
   Drink = Struct.new(:name, :price, :amount)
-  attr_reader :total_amount, :drink
+  attr_reader :total_amount, :drink, :sales
 
   def initialize
     @total_amount = 0
     @drink = Drink.new('コーラ', 120, 5)
+    @sales = 0
   end
 
   def insert_coin(amount)
@@ -20,4 +21,11 @@ class VendingMachine
   def buyable?
     drink.price <= total_amount
   end
+
+  def buy
+    return unless buyable?
+    @drink.amount -= 1
+    @sales += @drink.price
+  end
+
 end
