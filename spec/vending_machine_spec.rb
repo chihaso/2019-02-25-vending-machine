@@ -29,4 +29,10 @@ RSpec.describe VendingMachine do
     expect(vending_machine.insert_coin(10000)).to eq(10000)
     expect(vending_machine.total_amount).to eq(0)
   end
+
+  it '初期状態で、コーラ（値段:120円、名前”コーラ”）を5本格納している' do
+    expect(vending_machine.drink.name).to eq('コーラ')
+    expect(vending_machine.drink.price).to eq(120)
+    expect(vending_machine.drink.amount).to eq(5)
+  end
 end

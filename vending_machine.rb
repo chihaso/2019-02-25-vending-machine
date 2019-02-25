@@ -14,4 +14,9 @@ class VendingMachine
   def refund
     @total_amount
   end
+
+  Drink = Struct.new(:name, :price, :amount)
+  def drink
+    Drink.new('コーラ', 120, 5)
+  end
 end
