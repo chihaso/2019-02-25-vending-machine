@@ -6,7 +6,9 @@ class VendingMachine
   end
 
   def insert_coin(amount)
-    @total_amount += amount
+    if amount > 5 && amount < 5000 then
+      @total_amount += amount
+    end
     amount
   end
 
