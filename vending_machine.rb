@@ -9,4 +9,8 @@ class VendingMachine
     @total += amount
     amount
   end
+
+  def refund
+    @total
+  end
 end

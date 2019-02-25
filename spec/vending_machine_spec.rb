@@ -14,4 +14,9 @@ RSpec.describe VendingMachine do
 
     expect(vending_machine.total).to eq(150)
   end
+
+  it '払い戻し操作を行うと、投入金額の総計を釣り銭として出力する' do
+    vending_machine.insert_coin(50)
+    expect(vending_machine.refund).to eq 50
+  end
 end
