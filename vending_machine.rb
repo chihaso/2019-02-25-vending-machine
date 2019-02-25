@@ -1,9 +1,11 @@
 class VendingMachine
   ACCEPTABLE_CURRENCIES = [10, 50, 100, 500, 1000]
-  attr_reader :total_amount
+  Drink = Struct.new(:name, :price, :amount)
+  attr_reader :total_amount, :drink
 
   def initialize
     @total_amount = 0
+    @drink = Drink.new('コーラ', 120, 5)
   end
 
   def insert_coin(amount)
@@ -13,10 +15,5 @@ class VendingMachine
 
   def refund
     @total_amount
-  end
-
-  Drink = Struct.new(:name, :price, :amount)
-  def drink
-    Drink.new('コーラ', 120, 5)
   end
 end

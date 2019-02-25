@@ -34,5 +34,6 @@ RSpec.describe VendingMachine do
     expect(vending_machine.drink.name).to eq('コーラ')
     expect(vending_machine.drink.price).to eq(120)
     expect(vending_machine.drink.amount).to eq(5)
+    expect(vending_machine.drink).to equal(vending_machine.drink)
   end
 end
