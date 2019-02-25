@@ -1,16 +1,16 @@
 class VendingMachine
-  attr_reader :total
+  attr_reader :total_amount
 
   def initialize
-    @total = 0
+    @total_amount = 0
   end
 
   def insert_coin(amount)
-    @total += amount
+    @total_amount += amount
     amount
   end
 
   def refund
-    @total
+    @total_amount
   end
 end
