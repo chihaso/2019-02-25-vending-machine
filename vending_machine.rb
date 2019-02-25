@@ -1,4 +1,5 @@
 class VendingMachine
+  ACCEPTABLE_CURRENCIES = [10, 50, 100, 500, 1000]
   attr_reader :total_amount
 
   def initialize
@@ -6,9 +7,7 @@ class VendingMachine
   end
 
   def insert_coin(amount)
-    if amount > 5 && amount < 5000 then
-      @total_amount += amount
-    end
+    @total_amount += amount if ACCEPTABLE_CURRENCIES.include? amount
     amount
   end
 
