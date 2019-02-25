@@ -36,4 +36,12 @@ RSpec.describe VendingMachine do
     expect(vending_machine.drink.amount).to eq(5)
     expect(vending_machine.drink).to equal(vending_machine.drink)
   end
+
+  it '投入金額の点で、コーラが購入できるかどうかを取得できる。' do
+    expect(vending_machine.buyable?).to eq false
+    vending_machine.insert_coin(10)
+    vending_machine.insert_coin(10)
+    vending_machine.insert_coin(100)
+    expect(vending_machine.buyable?).to eq true
+  end
 end

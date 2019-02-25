@@ -16,4 +16,8 @@ class VendingMachine
   def refund
     @total_amount
   end
+
+  def buyable?
+    drink.price <= total_amount
+  end
 end
