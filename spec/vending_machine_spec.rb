@@ -38,18 +38,18 @@ RSpec.describe VendingMachine do
     it '払い戻し操作では現在の投入金額からジュース購入金額を引いた釣り銭を出力する' do
       vending_machine.insert_coin(100)
       vending_machine.insert_coin(100)
-      vending_machine.buy
+      vending_machine.buy('コーラ')
       expect(vending_machine.refund).to eq 80
     end
   end
 
   describe '#buyable?' do
     it '投入金額の点で、コーラが購入できるかどうかを取得できる。' do
-      expect(vending_machine.buyable?).to eq false
+      expect(vending_machine.buyable?('コーラ')).to eq false
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(100)
-      expect(vending_machine.buyable?).to eq true
+      expect(vending_machine.buyable?('コーラ')).to eq true
     end
 
     it '在庫の点で、コーラが購入できるかどうかを取得できる。' do
@@ -57,13 +57,13 @@ RSpec.describe VendingMachine do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
-        expect(vending_machine.buyable?).to eq true
-        vending_machine.buy
+        expect(vending_machine.buyable?('コーラ')).to eq true
+        vending_machine.buy('コーラ')
       end
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(100)
-      expect(vending_machine.buyable?).to eq false
+      expect(vending_machine.buyable?('コーラ')).to eq false
     end
   end
 
@@ -73,13 +73,13 @@ RSpec.describe VendingMachine do
       # 買えない
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(10)
-      vending_machine.buy
+      vending_machine.buy('コーラ')
       expect(vending_machine.drink.amount).to eq 5
 
       # 買える
       vending_machine.insert_coin(100)
 
-      vending_machine.buy
+      vending_machine.buy('コーラ')
       expect(vending_machine.drink.amount).to eq 4
     end
 
@@ -89,7 +89,7 @@ RSpec.describe VendingMachine do
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(100)
 
-      vending_machine.buy
+      vending_machine.buy('コーラ')
       expect(vending_machine.sales).to eq 120
     end
 
@@ -98,12 +98,12 @@ RSpec.describe VendingMachine do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
-        expect(vending_machine.buyable?).to eq true
-        vending_machine.buy
+        expect(vending_machine.buyable?('コーラ')).to eq true
+        vending_machine.buy('コーラ')
       end
 
-      expect { vending_machine.buy }.to_not change { vending_machine.sales }
-      expect { vending_machine.buy }.to_not change { vending_machine.drink.amount }
+      expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.sales }
+      expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.drink.amount }
     end
   end
 
@@ -123,11 +123,11 @@ RSpec.describe VendingMachine do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
-        vending_machine.buy
+        vending_machine.buy('コーラ')
       end
       vending_machine.insert_coin(100)
       vending_machine.insert_coin(50)
-      vending_machine.buy
+      vending_machine.buy('コーラ')
       expect(vending_machine.buyables).to eq ['水']
     end
   end

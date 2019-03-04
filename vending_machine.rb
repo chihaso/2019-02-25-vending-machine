@@ -37,12 +37,12 @@ class VendingMachine
     @total_amount
   end
 
-  def buyable?
-    @drinks[0].buyable?(@total_amount)
+  def buyable?(drink_name)
+    find_drink_by_name(drink_name)&.buyable?(@total_amount)
   end
 
-  def buy
-    return unless buyable?
+  def buy(drink_name)
+    return unless buyable?(drink_name)
     @drinks[0].pop
     @sales += @drinks[0].price
     @total_amount -= @drinks[0].price
@@ -52,5 +52,11 @@ class VendingMachine
     @drinks.select do |drink|
       drink.buyable?(@total_amount)
     end.map(&:name)
+  end
+
+  private
+
+  def find_drink_by_name(name)
+    @drinks.find { |drink| drink.name == name }
   end
 end
