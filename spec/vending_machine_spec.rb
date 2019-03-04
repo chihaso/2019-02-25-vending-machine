@@ -31,10 +31,21 @@ RSpec.describe VendingMachine do
   end
 
   it '初期状態で、コーラ（値段:120円、名前”コーラ”）を5本格納している' do
-    expect(vending_machine.drink.name).to eq('コーラ')
-    expect(vending_machine.drink.price).to eq(120)
-    expect(vending_machine.drink.amount).to eq(5)
-    expect(vending_machine.drink).to equal(vending_machine.drink)
+    expect(vending_machine.drinks[0].name).to eq('コーラ')
+    expect(vending_machine.drinks[0].price).to eq(120)
+    expect(vending_machine.drinks[0].amount).to eq(5)
+  end
+
+  it '初期状態で、水（値段:100円、名前”水”）を5本格納している' do
+    expect(vending_machine.drinks[1].name).to eq('水')
+    expect(vending_machine.drinks[1].price).to eq(100)
+    expect(vending_machine.drinks[1].amount).to eq(5)
+  end
+
+  it '初期状態で、レッドブル（値段:200円、名前”レッドブル”）を5本格納している' do
+    expect(vending_machine.drinks[2].name).to eq('レッドブル')
+    expect(vending_machine.drinks[2].price).to eq(200)
+    expect(vending_machine.drinks[2].amount).to eq(5)
   end
 
   it '投入金額の点で、コーラが購入できるかどうかを取得できる。' do

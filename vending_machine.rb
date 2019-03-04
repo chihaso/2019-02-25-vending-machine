@@ -9,12 +9,19 @@ class VendingMachine
       self.amount -= 1
     end
   end
-  attr_reader :total_amount, :drink, :sales
+  attr_reader :total_amount, :drinks, :sales
 
   def initialize
-    @total_amount = 0
-    @drink = Drink.new('コーラ', 120, 5)
+    @total_amount = 0 
+    cola = Drink.new('コーラ', 120, 5)
+    water = Drink.new('水', 100, 5)
+    redbull = Drink.new('レッドブル', 200, 5)
+    @drinks = [cola,water,redbull]
     @sales = 0
+  end
+
+  def drink
+    @drinks[0]
   end
 
   def insert_coin(amount)
@@ -27,15 +34,13 @@ class VendingMachine
   end
 
   def buyable?
-    @drink.stock? && drink.price <= total_amount
+    @drinks[0].stock? && drink.price <= total_amount
   end
 
   def buy
     return unless buyable?
-    @drink.pop
-    @sales += @drink.price
-    @total_amount -= @drink.price
+    @drinks[0].pop
+    @sales += @drinks[0].price
+    @total_amount -= @drinks[0].price
   end
-
-
 end
