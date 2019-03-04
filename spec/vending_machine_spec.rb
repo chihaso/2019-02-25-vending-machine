@@ -53,13 +53,13 @@ RSpec.describe VendingMachine do
     end
 
     it '在庫の点で、コーラが購入できるかどうかを取得できる。' do
-      vending_machine.drink.amount.times do
+      5.times do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
-        expect(vending_machine.buyable?('コーラ')).to eq true
         vending_machine.buy('コーラ')
       end
+
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(100)
@@ -94,11 +94,10 @@ RSpec.describe VendingMachine do
     end
 
     it '投入金額が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。' do
-      vending_machine.drink.amount.times do
+      5.times do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
-        expect(vending_machine.buyable?('コーラ')).to eq true
         vending_machine.buy('コーラ')
       end
 
@@ -119,12 +118,13 @@ RSpec.describe VendingMachine do
     end
 
     it '投入金額、在庫の点で購入可能なドリンクのリストを取得できる。何回か買って150円入れる' do
-      vending_machine.drink.amount.times do
+      5.times do
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(10)
         vending_machine.insert_coin(100)
         vending_machine.buy('コーラ')
       end
+
       vending_machine.insert_coin(100)
       vending_machine.insert_coin(50)
       vending_machine.buy('コーラ')
