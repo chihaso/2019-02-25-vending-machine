@@ -95,4 +95,11 @@ RSpec.describe VendingMachine do
     expect { vending_machine.buy }.to_not change { vending_machine.sales }
     expect { vending_machine.buy }.to_not change { vending_machine.drink.amount }
   end
+
+  it '払い戻し操作では現在の投入金額からジュース購入金額を引いた釣り銭を出力する' do
+    vending_machine.insert_coin(100)
+    vending_machine.insert_coin(100)
+    vending_machine.buy
+    expect(vending_machine.refund).to eq 80
+  end
 end

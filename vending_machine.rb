@@ -31,6 +31,7 @@ class VendingMachine
     return unless buyable?
     @drink.amount -= 1
     @sales += @drink.price
+    @total_amount -= @drink.price
   end
 
 end
