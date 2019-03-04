@@ -38,7 +38,7 @@ class VendingMachine
   end
 
   def buyable?
-    @drinks[0].stock? && drink.price <= total_amount
+    @drinks[0].buyable?(@total_amount)
   end
 
   def buy
