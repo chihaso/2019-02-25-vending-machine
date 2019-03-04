@@ -45,6 +45,20 @@ RSpec.describe VendingMachine do
     expect(vending_machine.buyable?).to eq true
   end
 
+  it '在庫の点で、コーラが購入できるかどうかを取得できる。' do
+    vending_machine.drink.amount.times do
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(100)
+      expect(vending_machine.buyable?).to eq true
+      vending_machine.buy
+    end
+    vending_machine.insert_coin(10)
+    vending_machine.insert_coin(10)
+    vending_machine.insert_coin(100)
+    expect(vending_machine.buyable?).to eq false
+  end
+
   it 'ジュース値段以上で、購入操作を行うと、ジュースの在庫が減る' do expect(vending_machine.drink.amount).to eq 5
     # 買えない
     vending_machine.insert_coin(10)
