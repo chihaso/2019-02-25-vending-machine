@@ -4,6 +4,10 @@ class VendingMachine
     def stock?
       amount >= 1
     end
+
+    def pop
+      self.amount -= 1
+    end
   end
   attr_reader :total_amount, :drink, :sales
 
@@ -23,15 +27,15 @@ class VendingMachine
   end
 
   def buyable?
-    return false unless @drink.stock?
-    drink.price <= total_amount
+    @drink.stock? && drink.price <= total_amount
   end
 
   def buy
     return unless buyable?
-    @drink.amount -= 1
+    @drink.pop
     @sales += @drink.price
     @total_amount -= @drink.price
   end
+
 
 end
