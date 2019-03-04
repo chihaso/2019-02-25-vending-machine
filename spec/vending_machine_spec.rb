@@ -82,4 +82,17 @@ RSpec.describe VendingMachine do
     vending_machine.buy
     expect(vending_machine.sales).to eq 120
   end
+
+  it '投入金額が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。' do
+    vending_machine.drink.amount.times do
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(100)
+      expect(vending_machine.buyable?).to eq true
+      vending_machine.buy
+    end
+
+    expect { vending_machine.buy }.to_not change { vending_machine.sales }
+    expect { vending_machine.buy }.to_not change { vending_machine.drink.amount }
+  end
 end
