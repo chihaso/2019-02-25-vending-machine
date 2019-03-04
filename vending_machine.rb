@@ -8,11 +8,15 @@ class VendingMachine
     def pop
       self.amount -= 1
     end
+
+    def buyable?(current_amount)
+      stock? && price <= current_amount
+    end
   end
   attr_reader :total_amount, :drinks, :sales
 
   def initialize
-    @total_amount = 0 
+    @total_amount = 0
     cola = Drink.new('コーラ', 120, 5)
     water = Drink.new('水', 100, 5)
     redbull = Drink.new('レッドブル', 200, 5)
@@ -42,5 +46,11 @@ class VendingMachine
     @drinks[0].pop
     @sales += @drinks[0].price
     @total_amount -= @drinks[0].price
+  end
+
+  def buyables
+    @drinks.select do |drink|
+      drink.buyable?(@total_amount)
+    end.map(&:name)
   end
 end

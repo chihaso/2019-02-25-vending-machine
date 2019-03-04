@@ -114,4 +114,27 @@ RSpec.describe VendingMachine do
     vending_machine.buy
     expect(vending_machine.refund).to eq 80
   end
+
+  it '投入金額、在庫の点で購入可能なドリンクのリストを取得できる。最初' do
+    expect(vending_machine.buyables).to eq []
+  end
+
+  it '投入金額、在庫の点で購入可能なドリンクのリストを取得できる。150円入れる' do
+    vending_machine.insert_coin(100)
+    vending_machine.insert_coin(50)
+    expect(vending_machine.buyables).to eq ['コーラ', '水']
+  end
+
+  it '投入金額、在庫の点で購入可能なドリンクのリストを取得できる。何回か買って150円入れる' do
+    vending_machine.drink.amount.times do
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(100)
+      vending_machine.buy
+    end
+    vending_machine.insert_coin(100)
+    vending_machine.insert_coin(50)
+    vending_machine.buy
+    expect(vending_machine.buyables).to eq ['水']
+  end
 end
