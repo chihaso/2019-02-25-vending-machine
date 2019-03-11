@@ -39,9 +39,10 @@ class VendingMachine
 
   def buy(drink_name)
     return unless buyable?(drink_name)
-    @drinks[0].pop
-    @sales += @drinks[0].price
-    @total_amount -= @drinks[0].price
+    drink = find_drink_by_name(drink_name)
+    drink.pop
+    @sales += drink.price
+    @total_amount -= drink.price
   end
 
   def buyables
