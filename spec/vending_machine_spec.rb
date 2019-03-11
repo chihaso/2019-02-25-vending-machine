@@ -40,10 +40,11 @@ RSpec.describe VendingMachine do
       vending_machine.insert_coin(100)
       vending_machine.buy('コーラ')
       expect(vending_machine.refund).to eq 80
+      expect(vending_machine.refund).to eq 0
     end
   end
 
-  describe '#uyable?' do
+  describe '#buyable?' do
     it '投入金額の点で、コーラが購入できるかどうかを取得できる。' do
       expect(vending_machine.buyable?('コーラ')).to eq false
       vending_machine.insert_coin(10)
@@ -104,6 +105,15 @@ RSpec.describe VendingMachine do
       expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.sales }
       expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.find_drink_by_name('コーラ').amount }
     end
+
+    it 'ジュース値段以上の投入金額が投入されている条件下で購入操作を行うと、釣り銭（投入金額とジュース値段の差分）を出力する。' do
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(10)
+      vending_machine.insert_coin(100)
+      expect(vending_machine.buy('コーラ')).to eq(10)
+      expect(vending_machine.refund).to eq(10)
+    end
   end
 
   describe '#buyables' do
@@ -139,12 +149,12 @@ RSpec.describe VendingMachine do
       expect(cola.price).to eq(120)
       expect(cola.amount).to eq(5)
 
-      water =  vending_machine.find_drink_by_name('水') 
+      water =  vending_machine.find_drink_by_name('水')
       expect(water.name).to eq('水')
       expect(water.price).to eq(100)
       expect(water.amount).to eq(5)
 
-      redbull =  vending_machine.find_drink_by_name('レッドブル') 
+      redbull =  vending_machine.find_drink_by_name('レッドブル')
       expect(redbull.name).to eq('レッドブル')
       expect(redbull.price).to eq(200)
       expect(redbull.amount).to eq(5)

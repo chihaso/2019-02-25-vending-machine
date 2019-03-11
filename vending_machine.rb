@@ -30,7 +30,9 @@ class VendingMachine
   end
 
   def refund
-    @total_amount
+    refund_value = @total_amount
+    @total_amount = 0
+    refund_value
   end
 
   def buyable?(drink_name)
