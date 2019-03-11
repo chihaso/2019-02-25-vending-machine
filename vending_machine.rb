@@ -54,8 +54,6 @@ class VendingMachine
     end.map(&:name)
   end
 
-  private
-
   def find_drink_by_name(name)
     @drinks.find { |drink| drink.name == name }
   end

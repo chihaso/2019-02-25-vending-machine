@@ -43,7 +43,7 @@ RSpec.describe VendingMachine do
     end
   end
 
-  describe '#buyable?' do
+  describe '#uyable?' do
     it '投入金額の点で、コーラが購入できるかどうかを取得できる。' do
       expect(vending_machine.buyable?('コーラ')).to eq false
       vending_machine.insert_coin(10)
@@ -69,18 +69,18 @@ RSpec.describe VendingMachine do
 
   describe '#buy' do
     it 'ジュース値段以上で、購入操作を行うと、ジュースの在庫が減る' do
-      expect(vending_machine.drink.amount).to eq 5
+      expect(vending_machine.find_drink_by_name('コーラ').amount).to eq 5
       # 買えない
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(10)
       vending_machine.buy('コーラ')
-      expect(vending_machine.drink.amount).to eq 5
+      expect(vending_machine.find_drink_by_name('コーラ').amount).to eq 5
 
       # 買える
       vending_machine.insert_coin(100)
 
       vending_machine.buy('コーラ')
-      expect(vending_machine.drink.amount).to eq 4
+      expect(vending_machine.find_drink_by_name('コーラ').amount).to eq 4
     end
 
     it '購入操作を行うと、売上金額が増える' do
@@ -132,21 +132,22 @@ RSpec.describe VendingMachine do
     end
   end
 
-  it '初期状態で、コーラ（値段:120円、名前”コーラ”）を5本格納している' do
-    expect(vending_machine.drinks[0].name).to eq('コーラ')
-    expect(vending_machine.drinks[0].price).to eq(120)
-    expect(vending_machine.drinks[0].amount).to eq(5)
-  end
+  describe '.new' do
+    it do
+      cola =  vending_machine.find_drink_by_name('コーラ')
+      expect(cola.name).to eq('コーラ')
+      expect(cola.price).to eq(120)
+      expect(cola.amount).to eq(5)
 
-  it '初期状態で、水（値段:100円、名前”水”）を5本格納している' do
-    expect(vending_machine.drinks[1].name).to eq('水')
-    expect(vending_machine.drinks[1].price).to eq(100)
-    expect(vending_machine.drinks[1].amount).to eq(5)
-  end
+      water =  vending_machine.find_drink_by_name('水') 
+      expect(water.name).to eq('水')
+      expect(water.price).to eq(100)
+      expect(water.amount).to eq(5)
 
-  it '初期状態で、レッドブル（値段:200円、名前”レッドブル”）を5本格納している' do
-    expect(vending_machine.drinks[2].name).to eq('レッドブル')
-    expect(vending_machine.drinks[2].price).to eq(200)
-    expect(vending_machine.drinks[2].amount).to eq(5)
+      redbull =  vending_machine.find_drink_by_name('レッドブル') 
+      expect(redbull.name).to eq('レッドブル')
+      expect(redbull.price).to eq(200)
+      expect(redbull.amount).to eq(5)
+    end
   end
 end
