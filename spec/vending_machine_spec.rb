@@ -102,7 +102,7 @@ RSpec.describe VendingMachine do
       end
 
       expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.sales }
-      expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.drink.amount }
+      expect { vending_machine.buy('コーラ') }.to_not change { vending_machine.find_drink_by_name('コーラ').amount }
     end
   end
 

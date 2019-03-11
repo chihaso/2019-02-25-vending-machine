@@ -24,10 +24,6 @@ class VendingMachine
     @sales = 0
   end
 
-  def drink
-    @drinks[0]
-  end
-
   def insert_coin(amount)
     @total_amount += amount if ACCEPTABLE_CURRENCIES.include? amount
     amount
