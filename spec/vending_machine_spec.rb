@@ -32,15 +32,15 @@ RSpec.describe VendingMachine do
   describe '#refund' do
     it '払い戻し操作を行うと、投入金額の総計を釣り銭として出力する' do
       vending_machine.insert_coin(50)
-      expect(vending_machine.refund).to eq 50
+      expect(vending_machine.refund).to eq [50]
     end
 
     it '払い戻し操作では現在の投入金額からジュース購入金額を引いた釣り銭を出力する' do
       vending_machine.insert_coin(100)
       vending_machine.insert_coin(100)
       vending_machine.buy('コーラ')
-      expect(vending_machine.refund).to eq 80
-      expect(vending_machine.refund).to eq 0
+      expect(vending_machine.refund).to eq [50, 10, 10, 10]
+      expect(vending_machine.refund).to eq []
     end
   end
 
@@ -112,7 +112,7 @@ RSpec.describe VendingMachine do
       vending_machine.insert_coin(10)
       vending_machine.insert_coin(100)
       expect(vending_machine.buy('コーラ')).to eq(10)
-      expect(vending_machine.refund).to eq(10)
+      expect(vending_machine.refund).to eq [10]
     end
   end
 
