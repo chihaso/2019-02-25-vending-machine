@@ -159,5 +159,10 @@ RSpec.describe VendingMachine do
       expect(redbull.price).to eq(200)
       expect(redbull.amount).to eq(5)
     end
+
+    it '釣り銭ストックとして、有効な各お札と硬貨10枚ずつ保持する。' do
+      stock = vending_machine.change_stock
+      expect(stock).to eq({ 10 => 10, 50 => 10, 100 => 10, 500 => 10, 1000 => 10 })
+    end
   end
 end

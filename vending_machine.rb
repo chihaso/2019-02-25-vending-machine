@@ -53,6 +53,10 @@ class VendingMachine
     end.map(&:name)
   end
 
+  def change_stock
+    { 10 => 10, 50 => 10, 100 => 10, 500 => 10, 1000 => 10 }
+  end
+
   def find_drink_by_name(name)
     @drinks.find { |drink| drink.name == name }
   end
